@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-select-menu',
@@ -6,10 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./select-menu.component.css']
 })
 export class SelectMenuComponent implements OnInit {
+  @Output() optionChange = new EventEmitter<Object>();
 
   constructor() { }
 
-  ngOnInit() {
+  dropDownOptions: string[] = ['Air', 'Earth', 'Fire', 'Water'];
+  showMenu = false;
+  currentType = 'Air';
+
+  showOptions(visibility): void {
+    this.showMenu = visibility;
+
+    // child -> parent
+    this.optionChange.emit(this.currentType);
   }
+
+  ngOnInit() { }
 
 }
